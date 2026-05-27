@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
 const OCTANTS = [
@@ -79,6 +79,19 @@ export default function Index() {
   const [date, setDate] = useState(new Date().toLocaleDateString('ru-RU'));
   const [title, setTitle] = useState('Дискограмма ДМО (Т. Лири)');
   const [format, setFormat] = useState<'png' | 'pdf'>('png');
+  const [visibleChars, setVisibleChars] = useState(0);
+  const authorName = 'Минковой Марии';
+
+  useEffect(() => {
+    setVisibleChars(0);
+    let i = 0;
+    const timer = setInterval(() => {
+      i++;
+      setVisibleChars(i);
+      if (i >= authorName.length) clearInterval(timer);
+    }, 70);
+    return () => clearInterval(timer);
+  }, []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
@@ -135,6 +148,21 @@ export default function Index() {
               <p className="text-xs text-slate-400 leading-none">Диагностика межличностных отношений</p>
             </div>
           </div>
+
+          {/* Имя с анимацией */}
+          <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-indigo-50 to-violet-50 border border-indigo-100 shadow-sm">
+            <span className="text-xs text-indigo-300 font-medium tracking-wide">для</span>
+            <span className="relative font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600 text-base tracking-wide" style={{ fontFamily: "'Golos Text', sans-serif" }}>
+              {authorName.slice(0, visibleChars)}
+              {visibleChars < authorName.length && (
+                <span className="inline-block w-0.5 h-4 bg-violet-400 ml-0.5 align-middle animate-pulse" />
+              )}
+              {visibleChars >= authorName.length && (
+                <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gradient-to-r from-indigo-400 to-violet-500 rounded-full animate-scale-in origin-left" />
+              )}
+            </span>
+          </div>
+
           <span className="text-xs bg-blue-100 text-blue-700 font-semibold px-3 py-1 rounded-full">8 октантов</span>
         </div>
       </header>
