@@ -1,0 +1,20 @@
+{
+  "tests": [
+    {
+      "name": "Генерация дискограммы PNG",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "real":  [3, 2, 1, 2, 6, 7, 8, 4],
+        "ideal": [8, 4, 5, 2, 2, 3, 9, 6],
+        "name": "Анастасия, 34 г.",
+        "client": "Минкова М.И.",
+        "date": "27.05.2026",
+        "format": "png"
+      },
+      "expectedStatus": 200,
+      "expectedBody": { "format": "png" },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
