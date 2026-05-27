@@ -140,8 +140,9 @@ export default function Index() {
       <header className="border-b border-white/60 bg-white/70 backdrop-blur-md sticky top-0 z-20 shadow-sm">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md">
-              <Icon name="CircleDot" size={18} className="text-white" />
+            {/* Анимированный логотип */}
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md animate-glow-pulse">
+              <Icon name="CircleDot" size={18} className="text-white animate-logo-spin" />
             </div>
             <div>
               <h1 className="font-bold text-slate-800 text-lg leading-tight">ДМО — Дискограмма Лири</h1>
@@ -149,16 +150,22 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Имя с анимацией */}
-          <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-indigo-50 to-violet-50 border border-indigo-100 shadow-sm">
-            <span className="text-xs text-indigo-300 font-medium tracking-wide">для</span>
-            <span className="relative font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600 text-base tracking-wide" style={{ fontFamily: "'Golos Text', sans-serif" }}>
+          {/* Имя с переливающейся анимацией */}
+          <div className="animate-border-glow border-2 rounded-2xl px-4 py-1.5" style={{ background: 'linear-gradient(135deg, #f0f0ff 0%, #f5f0ff 100%)' }}>
+            <span
+              className="relative font-bold text-lg tracking-wide animate-glow-pulse"
+              style={{
+                background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7, #ec4899, #8b5cf6, #6366f1)',
+                backgroundSize: '200% auto',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                animation: 'shimmer 2.4s linear infinite, glow-pulse 2s ease-in-out infinite',
+              }}
+            >
               {authorName.slice(0, visibleChars)}
               {visibleChars < authorName.length && (
-                <span className="inline-block w-0.5 h-4 bg-violet-400 ml-0.5 align-middle animate-pulse" />
-              )}
-              {visibleChars >= authorName.length && (
-                <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gradient-to-r from-indigo-400 to-violet-500 rounded-full animate-scale-in origin-left" />
+                <span className="inline-block w-0.5 h-5 bg-violet-500 ml-0.5 align-middle animate-pulse" style={{ WebkitTextFillColor: 'initial' }} />
               )}
             </span>
           </div>
